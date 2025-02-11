@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carlo's Portfolio</title>
+    <link rel="icon" type="image/x-icon" href="personal.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a1b9a, #1e88e5, #ffffff);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 50% 50%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .landing-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            max-width: 600px;
+            width: 90%;
+            margin: 100px auto;
+        }
+
+        .landing-container img {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border: 3px solid #6a1b9a;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            color: #6a1b9a;
+            margin-bottom: 10px;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from { text-shadow: 0 0 10px #6a1b9a; }
+            to { text-shadow: 0 0 20px #1e88e5; }
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .enter-btn {
+            background-color: #1e88e5;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .enter-btn:hover {
+            background-color: #6a1b9a;
+            transform: scale(1.05);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        header {
+            background-color: #6a1b9a;
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        header img {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border: 2px solid #fff;
+        }
+
+        header h1 {
+            color: #E0FFFF;
+            margin: 0;
+            font-size: 2em;
+        }
+
+        header a {
+            color: #ffeb3b;
+            text-decoration: none;
+            font-size: 1em;
+        }
+
+        nav {
+            background-color: #1e88e5;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffeb3b;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .add-btn {
+            background-color: #1e88e5;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-btn:hover {
+            background-color: #6a1b9a;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .file-list li {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .delete-btn img {
+            width: 20px;
+            height: 20px;
+        }
+
+        section {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            width: 30%;
+            min-width: 250px;
+            margin: 20px 10px;
+            padding: 20px;
+        }
+
+        #projects {
+            width: 60%;
+            position: relative;
+        }
+
+        section h2 {
+            color: #6a1b9a;
+            margin-bottom: 15px;
+        }
+
+        .slider {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .project {
+            min-width: 100%;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .project img {
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        .project:hover {
+            transform: scale(1.05);
+        }
+
+        .project-info {
+            position: absolute;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border-radius: 0 0 15px 15px;
+            display: none;
+        }
+
+        .project-info p {
+            color: white;
+        }
+
+
+        .project:hover .project-info {
+            display: block;
+        }
+
+        .nav-buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .nav-buttons button {
+            background: rgba(106, 27, 154, 0.7);
+            border: none;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .nav-buttons button:hover {
+            background: #1e88e5;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.1);
+        }
+
+        .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+
+        footer {
+            background-color: #6a1b9a;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="landing-container">
+        <img src="mepic.jpg" alt="Hello! I am Carlo!">
+        <h1>Welcome to my Portfolio</h1>
+        <p>Explore my homework assignments, reading responses, and exciting team project ideas.</p>
+        <button class="enter-btn" onclick="enterSite()">Enter Site</button>
+    </div>
+
+    <div class="hidden" id="main-content">
+        <header>
+            <img src="mepic.jpg" alt="Carlo Agustin C. Malabanan">
+            <h1>Carlo Agustin C. Malabanan</h1>
+        </header>
+
+        <nav>
+            <a href="#homework">Homework Assignments</a>
+            <a href="#reading">Reading Responses</a>
+            <a href="#projects">Team Projects</a>
+        </nav>
+
+        <div class="container">
+            <section id="homework">
+                <h2>Homework Assignments</h2>
+                <p>Post links or upload files for your individual homework assignments here.</p>
+                <input type="file" id="homeworkFile" class="file-input" onchange="uploadFile(event, 'homeworkList')">
+                <button class="add-btn" onclick="document.getElementById('homeworkFile').click()">+ Add Homework</button>
+                <ul id="homeworkList" class="file-list"></ul>
+            </section>
+
+            <section id="reading">
+                <h2>Reading Responses</h2>
+                <p>Post your reading responses here with reflections and key takeaways.</p>
+                <input type="file" id="readingFile" class="file-input" onchange="uploadFile(event, 'readingList')">
+                <button class="add-btn" onclick="document.getElementById('readingFile').click()">+ Add Reading Response</button>
+                <ul id="readingList" class="file-list"></ul>
+            </section>
+
+            <section id="projects">
+                <h2>Team Project Ideas</h2>
+                <div class="slider">
+                    <div class="slides">
+                        <div class="project">
+                            <img src="planner.jpg" alt="Project 1">
+                            <div class="project-info">
+                                <h3>Smart Study Planner App</h3>
+                                <p>A mobile app that helps students manage their time effectively,<br>
+                                with AI-generated study schedules based on deadlines and study habits.</p>
+                            </div>
+                        </div>
+                        <div class="project">
+                            <img src="aipow.jpg" alt="Project 2">
+                            <div class="project-info">
+                                <h3>AI-Powered Coding Assistant</h3>
+                                <p>An AI-driven coding tutor that helps students learn programming through<br>
+                                real-time feedback, debugging tips, and personalized exercises.</p>
+                            </div>
+                        </div>
+                        <div class="project">
+                            <img src="envi.jpg" alt="Project 3">
+                            <div class="project-info">
+                                <h3>Environmental Impact Tracker</h3>
+                                <p>A web tool that helps users track their carbon footprint<br>
+                                and offers personalized tips to reduce environmental impact.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="moveSlide(-1)">&#10094;</button>
+                        <button onclick="moveSlide(1)">&#10095;</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <div class="social-icons">
+                <a href="mailto:carlomalabanan76@gmail.com" title="Email">
+                    <img src="gmail.png" alt="Email" class="icon">
+                </a>
+                <a href="https://www.facebook.com/carloxcaparas" target="_blank" title="Facebook">
+                    <img src="facebook.png" alt="Facebook" class="icon">
+                </a>
+                <a href="https://www.instagram.com/_carloswain/" target="_blank" title="Instagram">
+                    <img src="ig.png" alt="Instagram" class="icon">
+                </a>
+            </div>
+            &copy; 2025 Carlo Agustin C. Malabanan | All Rights Reserved
+        </footer>
+
+    </div>
+
+    <script>
+        function enterSite() {
+            document.querySelector('.landing-container').classList.add('hidden');
+            document.getElementById('main-content').classList.remove('hidden');
+        }
+
+        function uploadFile(event, listId) {
+            const file = event.target.files[0];
+            if (file) {
+                const list = document.getElementById(listId);
+                const listItem = document.createElement("li");
+                const link = document.createElement("a");
+                const deleteBtn = document.createElement("button");
+                const deleteIcon = document.createElement("img");
+                
+                link.href = URL.createObjectURL(file);
+                link.download = file.name;
+                link.textContent = file.name;
+                link.style.textDecoration = "none";
+                link.style.color = "#1e88e5";
+                link.style.fontWeight = "bold";
+                
+                deleteBtn.className = "delete-btn";
+                deleteIcon.src = "del.png";
+                deleteIcon.alt = "Delete";
+                deleteBtn.appendChild(deleteIcon);
+                
+                deleteBtn.onclick = function() {
+                    listItem.style.opacity = "0";
+                    listItem.style.transform = "translateX(-20px)";
+                    setTimeout(() => list.removeChild(listItem), 300);
+                };
+                
+                listItem.appendChild(link);
+                listItem.appendChild(deleteBtn);
+                list.appendChild(listItem);
+                
+                listItem.style.opacity = "0";
+                listItem.style.transform = "translateX(-20px)";
+                setTimeout(() => {
+                    listItem.style.opacity = "1";
+                    listItem.style.transform = "translateX(0)";
+                }, 10);
+            }
+        }
+
+        let currentSlide = 0;
+
+        function moveSlide(direction) {
+            const slides = document.querySelector('.slides');
+            const totalSlides = document.querySelectorAll('.project').length;
+
+            currentSlide += direction;
+            if (currentSlide >= totalSlides) currentSlide = 0;
+            if (currentSlide < 0) currentSlide = totalSlides - 1;
+
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+    </script>
+</body>
+</html>
